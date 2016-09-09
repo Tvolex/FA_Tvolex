@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Setting</title>
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript">$(window).on('load', function () {
+        var $preloader = $('#p_prldr'),
+                $svg_anm   = $preloader.find('.svg_anm');
+        $.ajax({
+            url: "/login",
+            type: "GET",
+            success: function (res) {
+                console.log("RESPONSE: ", res);
+                if(res) {
+                    var UserEmail = res.UserEmail;
+                    var RealName = res.RealName;
+                    var RealSurName = res.RealSurName;
+                    $("#HelloUser").append("Hello, " + UserEmail);
+                    $preloader.delay(500).fadeOut('slow');
+                    setTimeout(function () {
+                        $("body").css("overflow-y","auto");
+                    },1500);
+                    if(RealName) {
+                        $("#FormRealName").remove();
+                        $("#realuser").append(RealName);
+                        $("#surname").append(RealSurName);
+                        $("#email").append(UserEmail);
+
+                    } else {
+                        $(".RealUserInfo").remove();
+                    }
+                } else if(res == null) {
+                    window.location.replace("Enter.html");
+                }
+            }
+        });
+
+
+    });</script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+    <script src="../scripts/cookie.js"></script>
+</head>
+<header>
+    <div class="dropdown">
+        <button class="btn  btn-primary" style="height:45px;width: 100px" data-toggle="dropdown">Menu </button>
+        <ul class="dropdown-menu" role="menu" >
+            <li><a   href="index.html">Home</a></li>
+            <li><a  href="AboutUs.html">About Us</a></li>
+            <li><a  href="MyOffice.html">Account</a></li>
+            <li><a  href="Enter.html">Sign In</a></li>
+        </ul>
+        <input type="button" id="btnExit" value="Exit" class="btn btn-danger"  />
+    </div>
+    <script>
+        if($.cookie("btnExit") == undefined) {
+            $("#btnExit").remove();
+        }
+        $("#btnExit").click(function () {
+            $.removeCookie('btnExit');
+            $.ajax({
+                url: "/delete",
+                type: "POST",
+                success:function (res) {
+                    if(res == "del") {
+                        window.location.href = "index.html";
+                    }
+                },
+                error: function (err) {
+                    console.log("Error", err);
+                    alert("Error", err);
+                }
+            });
+            $("#btnExit").remove();
+        });
+
+
+    </script>
+</header>
+<body style="overflow-y:hidden;">
+<div id="p_prldr">
+    <div class="contpre"><span class="svg_anm" ></span><br >
+        <h1 style="letter-spacing: 20px; color: black; margin-top: 50px"><b>Loading</b></h1><br>
+    </div>
+</div>
+<br>
+<div class="ChangeSaved" ></div>
+    <div class="row-fluid" align="center">
+        <a href="MyOffice.html">
+            <div class="GoBack" align="center">
+                <hr>
+               <span><h4>Go back to office</h4></span>
+
+            </div>
+        </a>
+        <div class="col-md-12"  >
+            <hr  color="yellowgreen" style=" height: 2px;">
+            <h2 ><b>Setting</b></h2>
+            <hr>
+            <h4 ><b>Change email</b></h4>
+            <hr>
+            <form action="" id="FormNewName" name="FormNewName">
+                <input type="text" id="NewName" name="NewName" minlength="3" class="InputNamePass"  placeholder="Enter your new email" align="center">
+            </form>
+            <hr>
+            <br><br>
+            <h4 ><b>Change password</b></h4>
+            <hr>
+            <form action="" id="FormNewPass">
+                <input type="password"  id="OldPass" name="OldPass" minlength="6"  class="InputNamePass" placeholder="Enter your old password">
+                <hr>
+                <input type="password" id="NewPass" name="NewPass" minlength="6" class="InputNamePass" placeholder="New password" >
+                <hr>
+                <input type="password" id="ConfNewPass" name="ConfNewPass" minlength="6" class="InputNamePass" placeholder="Confirm new password">
+            </form>
+            <hr>
+
+
+                <div class="DeleteBtn">
+                    <a  style="text-decoration: none" data-toggle="modal" data-target="#modal-1">
+                        <div class="DelTitle"><b>Delete Account</b></div>
+                    </a>
+                </div>
+            <div class="modal fade" id="modal-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content " >
+
+                        <div class="modal-header">
+                            <h4 class="modal-title" align="center">Delete Account
+                                <button class="close"  type="button" data-dismiss="modal"> &times; </button>
+                            </h4>
+
+                        </div>
+                        <div class="modal-body">
+                            <h1><b>Delete account?</b></h1>
+                            <input type="button" class="btn btn-success" value="No" data-dismiss="modal">
+                            <input type="button" class="btn btn-danger" value="Yes" id="DelAcc">
+                            <script>
+                                $("#DelAcc").click(function (res) {
+                                    $.ajax({
+                                        url: "/deleteAcc",
+                                        type: "POST",
+                                        success: function (res) {
+                                            console.log("RESPONSE: ", res);
+                                            if(res) {
+                                                window.location.href = "Enter.html";
+                                            }
+                                        }
+                                    });
+                                })
+                            </script>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" id="close" type="button" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="button" id="btnChange" value="Save" class="btn btn-success">
+
+        </div>
+    </div>
+<script>
+    var FormNewName = $("#FormNewName");
+    var FormNewPass = $("#FormNewPass");
+    var NewName = document.getElementById("NewName");
+    var OldPass = document.getElementById("OldPass");
+    var NewPass = document.getElementById("NewPass");
+    var ConfNewPass = document.getElementById("ConfNewPass");
+    function ChangeSaved() {
+        $(".ChangeSaved").html("<h2>Saved</h2>");
+        $(".ChangeSaved").css("background-color","yellowgreen");
+        $(".ChangeSaved").css("box-shadow","  0 0  10px 3px yellowgreen");
+        $(".ChangeSaved").css("opacity","1");
+        $(".ChangeSaved").css("margin-top","3%");
+        setTimeout(function () {
+            $(".ChangeSaved").css("opacity","0");
+            $(".ChangeSaved").css("margin-top","-15%");
+        },3000);
+    }
+    function NoChangeSaved() {
+        $(".ChangeSaved").html("<h2>Wrong password</h2>");
+        $(".ChangeSaved").css("background-color","red");
+        $(".ChangeSaved").css("box-shadow","  0 0  10px 3px red");
+        $(".ChangeSaved").css("opacity","1");
+        $(".ChangeSaved").css("margin-top","4%");
+        setTimeout(function () {
+            $(".ChangeSaved").css("opacity","0");
+            $(".ChangeSaved").css("margin-top","-15%");
+        },3000);
+
+    }
+    $("#btnChange").click(function () {
+        if(NewName.value){
+            var data = FormNewName.serializeArray();
+            $.ajax({
+                url: "/change",
+                type: "POST",
+                data: data,
+                success: function (res) {
+                    console.log("Change name: ", res);
+                    if(res.ChangeName) {
+                        ChangeSaved();
+                    } else if(!res.ChangeName) {
+                        NoChangeSavedName();
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        } else {
+            console.log("Enter new name");
+        }
+
+        if(OldPass.value && NewPass.value && ConfNewPass.value) {
+            if(NewPass.value == ConfNewPass.value) {
+                var data = FormNewPass.serializeArray();
+                $.ajax({
+                    url: "/change",
+                    data: data,
+                    type: "POST",
+                    success: function (res) {
+                        console.log("Change pass: ", res);
+                        if(res.ChangePass) {
+                            ChangeSaved();
+                        } else if(res.ChangePass == false) {
+                            NoChangeSaved();
+                        }
+                    }
+                })
+            }
+            else {
+                console.log("You entered wrong pass");
+            }
+        } else {
+            console.log("Enter new pass");
+        }
+
+    });
+
+
+    $("#btnExit").click(function () {
+        $.ajax({
+            url: "/delete",
+            type: "POST",
+            success:function (res) {
+                if(res == "del") {
+                    window.location.href = "index.html";
+                }
+            },
+            error: function (err) {
+                console.log("Error", err);
+                alert("Error", err);
+            }
+        })
+    });
+</script>
+</body>
+</html>

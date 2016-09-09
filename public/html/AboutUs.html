@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" >
+<head>
+    <title>About Us</title>
+    <meta http-equiv="content-type"    name="keywords" content="тестовий сайт" charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
+    <link rel="stylesheet" type="text/css" href="../style/animate.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.min.js"></script>
+    <script src="../scripts/cookie.js"></script>
+
+</head>
+<header>
+    <div class="dropdown">
+        <button class="btn  btn-primary" style="height:45px;width: 100px" data-toggle="dropdown">Menu </button>
+        <ul class="dropdown-menu" role="menu" >
+            <li><a   href="index.html">Home</a></li>
+            <li><a  href="AboutUs.html">About Us</a></li>
+            <li><a  href="MyOffice.html">Account</a></li>
+            <li><a  href="Enter.html">Sign In</a></li>
+        </ul>
+        <input type="button" id="btnExit" value="Exit" class="btn btn-danger"  />
+    </div>
+    <script>
+        if($.cookie("btnExit") == undefined) {
+            $("#btnExit").remove();
+        }
+        $("#btnExit").click(function () {
+            $.removeCookie('btnExit');
+            $.ajax({
+                url: "/delete",
+                type: "POST",
+                success:function (res) {
+                    if(res == "del") {
+                        window.location.href = "index.html";
+                    }
+                },
+                error: function (err) {
+                    console.log("Error", err);
+                    alert("Error", err);
+                }
+            });
+            $("#btnExit").remove();
+        });
+
+
+    </script>
+</header>
+
+
+
+<body onmousedown="return false" onselectstart="return false" style="overflow-x: hidden;">
+<!--<div class="backImg"></div>-->
+
+<section id="first">
+    <div id="firstSlide">
+        <h1 class="fontDev os-animation animated rotateInDownLeft" style="animation-delay: 1s;">Developers</h1>
+
+    </div>
+</section>
+<section id="second">
+    <div id="secondSlide" align="center">
+        <div class="DevsPhotoV os-animation animated flip" style="animation-delay: 2s;"></div>
+        <h2 id="fontDevV" class="os-animation animated fadeInLeft" style="animation-delay: 1s;">Tisyanchin Vasil</h2>
+        <div id="descriptionV" >
+            <h3>Age: 16</h3>
+            <h3>City: Uzhgorod (Ukraine)</h3>
+            <h3>Develop: Front-end,back-end developer. </h3>
+            <h3>Status: Junior Developer</h3>
+            <h3>Language: Node.js, JavaScript, PHP, HTML5, CSS3 </h3>
+            <h3>E-Mail:
+                <span id="VasyasEmail">tisyanchin13@gmail.com</span>
+                <button class="btnCopy" title="Click for copy to clipboard" data-clipboard-target="#VasyasEmail" onclick="new Clipboard('.btnCopy');"></button>
+            </h3>
+        </div>
+        <a href="http://vk.com/tvolex"><div id="linkVKV" class="os-animation animated wobble" style="animation-delay: 3s;"></div></a>
+        <a href="https://www.facebook.com/tvolex.rider"><div  id="linkFBV" class="os-animation animated wobble" style="animation-delay: 3s;"></div></a>
+    </div>
+</section>
+<section id="third" >
+    <div id="thirdSlide" align="center">
+        <div class="DevsPhotoS os-animation animated flip" style="animation-delay: 2s;"></div>
+        <h2 id="fontDevS" class="os-animation animated fadeInRight" style="animation-delay: 1s;">Stanislaw Baranyuk</h2>
+        <div id="descriptionS" >
+            <h3>Age: 16</h3>
+            <h3>City: Uzhgorod (Ukraine)</h3>
+            <h3>Develop: Front-end developer,designer</h3>
+            <h3>Status: Junior Developer</h3>
+            <h3>Language: HTML5, CSS3 </h3>
+            <h3>E-Mail:
+                <span id="StanislawsEmail" >Stanislaw222@mail.ru</span>
+                <button class="btnCopy" title="Click for copy to clipboard" data-clipboard-target="#StanislawsEmail" onclick="new Clipboard('.btnCopy');"></button>
+            </h3>
+        </div>
+        <a href="http://vk.com/zhmerinka7777"><div id="linkVKS" class="os-animation animated wobble" style="animation-delay: 3s;"></div></a>
+        <a href="https://www.facebook.com/profile.php?id=100008316161536"><div  id="linkFBS" class="os-animation animated wobble" style="animation-delay: 3s;"></div></a>
+        <!--<a href="#first"  class="toTop img-circle"></a>-->
+    </div>
+</section>
+<section id="fourth" >
+    <div id="fourthSlide" align="center">
+        <div class="DevsPhotoN os-animation animated flip" style="animation-delay: 2s;"></div>
+        <h2 id="fontDevN" class="os-animation animated fadeInRight" style="animation-delay: 1s;">Nikol Tegza</h2>
+        <div id="descriptionN" >
+            <h3>Age: 14</h3>
+            <h3>City: Uzhgorod (Ukraine)</h3>
+            <h3>Develop: Tester</h3>
+            <h3>Status: Junior </h3>
+            <h3>E-Mail:
+                <span id="NikasEmail">tegza.nika@yandex.ru</span>
+                <button class="btnCopy" title="Click for copy to clipboard" data-clipboard-target="#NikasEmail" onclick="new Clipboard('.btnCopy');"></button>
+            </h3>
+        </div>
+
+        <a href="https://new.vk.com/n_tegza"><div id="linkVKN" class="os-animation animated wobble" style="animation-delay: 3s;"></div></a>
+        <a href="https://www.facebook.com/profile.php?id=100008327293342"><div  id="linkFBN" class="os-animation animated wobble" style="animation-delay: 3s;"></div></a>
+        <!--<a href="#first"  class="toTop img-circle"></a>-->
+    </div>
+</section>
+
+
+<script>
+
+    $("#btnExit").click(function () {
+        var date = new Date(0);
+        document.cookie = "UserName=; path=/; expires=" + date.toUTCString();
+        document.cookie = "connect.sid=; path=/; expires=" + date.toUTCString();
+        document.cookie = "id=; path=/; expires=" + date.toUTCString();
+        console.log(document.cookie);
+        if($.cookie("UserName") == undefined) {
+            window.location.href = "index.html";
+        }
+    })
+</script>
+</body>
+<footer>
+    <div class="row-fluid " align="center">
+        <div class="col-md-4">
+            <h4 class="text-center"><b>Menu</b></h4>
+            <hr>
+            <p>   <a href="index.html" class="text-center footer-menu">Home</a></p>
+            <p> <a href="AboutUs.html" class="text-center footer-menu">About Us</a></p></p>
+            <p>   <a href="MyOffice.html" class="text-center footer-menu">My Office</a></p>
+            <p>  <a href="Enter.html" class="text-center footer-menu"> Sign In</a></p>
+
+        </div>
+        <div class="col-md-4">
+            <h4 class="text-center"><b>Contacts</b></h4>
+            <hr>
+            <p> <a href="https://new.vk.com/tvolex" class="text-center footer-menu">VK</a></p>
+            <p> <a href="https://www.facebook.com/tvolex.rider" class="text-center footer-menu">Facebook</a></p></p>
+
+
+        </div>
+        <div class="col-md-4">
+
+
+            <h4 class="text-center"><b>COPYRIGHTS</b></h4>
+            <hr>
+            <p href="https://new.vk.com/tvolex" class="text-center footer-menu">(c) Our development team</p>
+
+        </div>
+    </div>
+</footer>
+</html>

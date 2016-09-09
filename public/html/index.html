@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" >
+<head>
+    <title>Tvolex</title>
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="../scripts/cookie.js"></script>
+
+
+</head>
+<header>
+    <div class="dropdown">
+        <button class="btn  btn-primary" style="height:45px;width: 100px" data-toggle="dropdown">Menu </button>
+        <ul class="dropdown-menu" role="menu" >
+            <li><a   href="index.html">Home</a></li>
+            <li><a  href="AboutUs.html">About Us</a></li>
+            <li><a  href="MyOffice.html">Account</a></li>
+            <li><a  href="Enter.html">Sign In</a></li>
+        </ul>
+        <input type="button" id="btnExit" value="Exit" class="btn btn-danger"  />
+    </div>
+    <script>
+        if($.cookie("btnExit") == undefined) {
+            $("#btnExit").remove();
+        }
+        $("#btnExit").click(function () {
+            $.removeCookie('btnExit');
+            $.ajax({
+                url: "/delete",
+                type: "POST",
+                success:function (res) {
+                    if(res == "del") {
+                        window.location.href = "index.html";
+                    }
+                },
+                error: function (err) {
+                    console.log("Error", err);
+                    alert("Error", err);
+                }
+            });
+            $("#btnExit").remove();
+        });
+
+
+    </script>
+</header>
+
+
+<body id="IndexBodyImg">
+<div id="IndexPicture"></div>
+   <div id="Content" align="center">
+       <div class="hello"><h3>Hello, this is <a href="AboutUs.html">our</a> test website</h3></div>
+   </div>
+<script>
+
+    $("#btnExit").click(function () {
+        var date = new Date(0);
+        document.cookie = "UserName=; path=/; expires=" + date.toUTCString();
+        document.cookie = "connect.sid=; path=/; expires=" + date.toUTCString();
+        document.cookie = "id=; path=/; expires=" + date.toUTCString();
+        console.log(document.cookie);
+        if($.cookie("UserName") == undefined) {
+            window.location.href = "index.html";
+        }
+    })
+</script>
+</body>
+
+</html>
+

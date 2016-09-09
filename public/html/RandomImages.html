@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Random image</title>
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript">$(window).on('load', function () {
+        var $preloader = $('#p_prldr'),
+                $svg_anm   = $preloader.find('.svg_anm');
+
+        $preloader.delay(1000).fadeOut('slow');
+        setTimeout(function () {
+            $("body").css("overflow-y","auto");
+        },1500)
+
+    });</script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="../scripts/cookie.js"></script>
+    <script>
+        $.ajax({
+            url: "/login",
+            type: "GET",
+            success: function (res) {
+                console.log("RESPONSE: ", res);
+                if(res) {
+                    var UserName = res.name;
+                    var RealName = res.RealName;
+                    var RealSurName = res.RealSurName;
+                    var UserEmail = res.UserMail;
+
+
+                } else if(res == null) {
+                    window.location.replace("Enter.html");
+                }
+            }
+        });
+    </script>
+</head>
+<header>
+    <div class="dropdown">
+        <button class="btn  btn-primary" style="height:45px;width: 100px" data-toggle="dropdown">Menu </button>
+        <ul class="dropdown-menu" role="menu" >
+            <li><a   href="index.html">Home</a></li>
+            <li><a  href="AboutUs.html">About Us</a></li>
+            <li><a  href="MyOffice.html">Account</a></li>
+            <li><a  href="Enter.html">Sign In</a></li>
+        </ul>
+        <input type="button" id="btnExit" value="Exit" class="btn btn-danger"  />
+    </div>
+    <script>
+        if($.cookie("btnExit") == undefined) {
+            $("#btnExit").remove();
+        }
+        $("#btnExit").click(function () {
+            $.removeCookie('btnExit');
+            $.ajax({
+                url: "/delete",
+                type: "POST",
+                success:function (res) {
+                    if(res == "del") {
+                        window.location.href = "index.html";
+                    }
+                },
+                error: function (err) {
+                    console.log("Error", err);
+                    alert("Error", err);
+                }
+            });
+            $("#btnExit").remove();
+        });
+
+
+    </script>
+</header>
+<body style='background-image: url("https://unsplash.it/1920/1080?random");'>
+<div class="ContentTitle" align="center">
+    <div class="randomTitle"><h1 class="text-center"><b>Random images</b></h1></div>
+
+</div>
+
+    <div class="row-fluid images" data-toggle="modal" data-target="#modal-1">
+        <div class="com-md-4" align="center">
+            <div class="img-1 ImageR animate fade-in" id="img1" onclick='$(this).clone().appendTo($(".modal-header"));'></div>
+        </div>
+        <div class="com-md-4" align="center">
+            <div class="img-2 ImageR animate fade-in" id="img2" onclick='$(this).clone().appendTo($(".modal-header"));'></div>
+        </div>
+        <div class="com-md-4" align="center">
+            <div class="img-3 ImageR animate fade-in" id="img3" onclick='$(this).clone().appendTo($(".modal-header"));'></div>
+        </div>
+
+    </div>
+    <div class="row-fluid images" data-toggle="modal" data-target="#modal-1">
+        <div class="com-md-4" align="center">
+            <div class="img-4 ImageR animate fade-in" id="img4" onclick='$(this).clone().appendTo($(".modal-header"));'></div>
+        </div>
+        <div class="com-md-4" align="center">
+            <div class="img-5 ImageR animate fade-in" id="img5" onclick='$(this).clone().appendTo($(".modal-header"));'></div>
+        </div>
+        <div class="com-md-4" align="center">
+            <div class="img-6 ImageR animate fade-in" id="img6" onclick='$(this).clone().appendTo($(".modal-header"));'></div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="modal-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content " align="center" >
+
+                <div class="modal-header" align="center" >
+                    <h4 class="modal-title" align="center">Photo
+                        <button class="close"  type="button" data-dismiss="modal"> &times; </button>
+                    </h4>
+
+                </div>
+                <div id="modalBody" class="modal-body">
+                    <button class="btn btn-danger" id="close" type="button" data-dismiss="modal">Close</button>
+                    <script>
+                        $("#close").click(function () {
+                            $(".modal-header").empty();
+                        });
+                        $("#modal-1").click(function () {
+                            $(".modal-header").empty();
+                        });
+                        $(".close").click(function () {
+                            $(".modal-header").empty();
+                        });
+                    </script>
+                </div>
+
+
+            </div>
+        </div></div>
+
+    <div  align="center">
+        <input type="button" id="reset" onclick="Reload()"  class="btn btn-success btnReload"  value="Reload"/>
+    </div>
+<script>
+    var imgNUM1 = 1;
+    var imgNUM2 = 2;
+    var imgNUM3 = 3;
+    var imgNUM4 = 4;
+    var imgNUM5 = 5;
+    var imgNUM6 = 6;
+    function Reload() {
+
+            imgNUM1=imgNUM1 + 6;
+            imgNUM2=imgNUM2 + 6;
+            imgNUM3=imgNUM3 + 6;
+            imgNUM4=imgNUM4 + 6;
+            imgNUM5=imgNUM5 + 6;
+            imgNUM6=imgNUM6 + 6;
+            document.getElementById("img1").style.backgroundImage = 'url("//unsplash.it/960/540/?random='+imgNUM1+'")';
+            document.getElementById("img2").style.backgroundImage = 'url("//unsplash.it/960/540/?random='+imgNUM2+'")';
+            document.getElementById("img3").style.backgroundImage = 'url("//unsplash.it/960/540/?random='+imgNUM3+'")';
+            document.getElementById("img4").style.backgroundImage = 'url("//unsplash.it/960/540/?random='+imgNUM4+'")';
+            document.getElementById("img5").style.backgroundImage = 'url("//unsplash.it/960/540/?random='+imgNUM5+'")';
+            document.getElementById("img6").style.backgroundImage = 'url("//unsplash.it/960/540/?random='+imgNUM6+'")';
+
+            // document.location.reload();
+        }
+
+
+</script>
+</body>
+<footer>
+    <div class="row-fluid " align="center">
+        <div class="col-md-4">
+            <h4 class="text-center"><b>Menu</b></h4>
+            <hr>
+            <p>   <a href="index.html" class="text-center footer-menu">Home</a></p>
+            <p> <a href="AboutUs.html" class="text-center footer-menu">About Us</a></p></p>
+            <p>   <a href="MyOffice.html" class="text-center footer-menu">My Office</a></p>
+            <p>  <a href="Enter.html" class="text-center footer-menu"> Sign In</a></p>
+
+        </div>
+        <div class="col-md-4">
+            <h4 class="text-center"><b>Contacts</b></h4>
+            <hr>
+            <p> <a href="https://new.vk.com/tvolex" class="text-center footer-menu">VK</a></p>
+            <p> <a href="https://www.facebook.com/tvolex.rider" class="text-center footer-menu">Facebook</a></p></p>
+
+
+        </div>
+        <div class="col-md-4">
+
+
+            <h4 class="text-center"><b>COPYRIGHTS</b></h4>
+            <hr>
+            <p href="https://new.vk.com/tvolex" class="text-center footer-menu">(c) Our development team</p>
+
+        </div>
+    </div>
+</footer>
+</html>

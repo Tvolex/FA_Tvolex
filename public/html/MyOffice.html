@@ -1,0 +1,250 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>My office</title>
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript">
+        $(window).on('load', function () {
+        var $preloader = $('#p_prldr'),
+                $svg_anm   = $preloader.find('.svg_anm');
+        $.ajax({
+            url: "/login",
+            type: "GET",
+            success: function (res) {
+                console.log("RESPONSE: ", res);
+                if(res) {
+                    var UserEmail = res.UserEmail;
+                    var RealName = res.RealName;
+                    var RealSurName = res.RealSurName;
+                    $("#HelloUser").append("Hello, " + UserEmail);
+                    $preloader.delay(500).fadeOut('slow');
+                    setTimeout(function () {
+                        $("body").css("overflow-y","auto");
+                    },1500);
+                    if(RealName) {
+                        $("#FormRealName").remove();
+                        $("#realuser").append(RealName);
+                        $("#surname").append(RealSurName);
+                        $("#email").append(UserEmail);
+
+                    } else {
+                        $(".RealUserInfo").remove();
+                    }
+                } else if(res == null) {
+                    console.log(res);
+                    window.location.replace("Enter.html");
+                }
+            },
+            error: function (res,err) {
+                console.log(res);
+                console.log(err);
+
+            }
+        });
+
+
+    });</script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+    <script src="../scripts/cookie.js"></script>
+</head>
+<header>
+    <div class="dropdown">
+        <button class="btn  btn-primary" style="height:45px;width: 100px" data-toggle="dropdown">Menu </button>
+        <ul class="dropdown-menu" role="menu" >
+            <li><a   href="index.html">Home</a></li>
+            <li><a  href="AboutUs.html">About Us</a></li>
+            <li><a  href="MyOffice.html">Account</a></li>
+            <li><a  href="Enter.html">Sign In</a></li>
+        </ul>
+        <input type="button" id="btnExit" value="Exit" class="btn btn-danger"  />
+    </div>
+    <script>
+        if($.cookie("btnExit") == undefined) {
+            $("#btnExit").remove();
+        }
+        $("#btnExit").click(function () {
+            $.removeCookie('btnExit');
+            $.ajax({
+                url: "/delete",
+                type: "POST",
+                success:function (res) {
+                    if(res == "del") {
+                        window.location.href = "index.html";
+                    }
+                },
+                error: function (err) {
+                    console.log("Error", err);
+                    alert("Error", err);
+                }
+            });
+            $("#btnExit").remove();
+        });
+
+
+    </script>
+</header>
+<body style="overflow-y:hidden;" >
+<div id="p_prldr">
+    <div class="contpre"><span class="svg_anm" ></span><br >
+        <h1 style="letter-spacing: 20px; color: black; margin-top: 50px"><b>Loading</b></h1><br>
+    </div>
+</div>
+<div id="bgAvatar" hidden="hidden"></div>
+
+<div class="ChangeSaved" align="center"></div>
+<br>
+<div class="UserInfo" align="center">
+    <hr>
+<h1 id="HelloUser"></h1>
+<div class="row-fluid" >
+    <div class="col-md-7">
+        <hr  color="yellowgreen" style=" height: 2px;">
+        <h3><b>Your avatar</b></h3>
+        <br>
+   <div  class="UserAvatar" data-toggle="modal" data-target="#modal-1">
+       <img id="avatar" src="../style/img/tylenb.jpg" alt="" >
+   </div>
+        <div class="modal fade" id="modal-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content " >
+
+                    <div class="modal-header">
+                        <h4 class="modal-title" align="center">Photo
+                            <button class="close"  type="button" data-dismiss="modal"> &times; </button>
+                        </h4>
+
+                    </div>
+                    <div id="modalBody" class="modal-body">
+                        <script>
+                            $(".UserAvatar").click(function () {
+                                $("#avatar").clone().attr("class","OpenAvatar").appendTo($("#modalBody"));
+                                $(".OpenAvatar").removeAttr("id","avatar");
+                                $("#close").click(function () {
+                                    $("#modalBody").empty();
+                                });
+                                $("#modal-1").click(function () {
+                                    $("#modalBody").empty();
+                                });
+                                $(".close").click(function () {
+                                    $("#modalBody").empty();
+                                });
+                            });
+
+
+                        </script>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" id="close" type="button" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div></div>
+        <hr>
+        <div class="RealUserInfo">
+            <h4  id="realuser" >Name : </h4>
+            <hr>
+            <h4  id="surname">Sur Name : </h4>
+            <hr>
+            <h4  id="email">Email : </h4>
+            <hr>
+        </div>
+
+        <form action="" method="post" name="FormRealName" id="FormRealName">
+            <input type="text" class="InputNamePass" name="RealName" minlength="3" id="RealName" placeholder="Enter your real name" required>
+            <hr>
+            <input type="text" class="InputNamePass" name="RealSurName" minlength="3" id="RealSurName" placeholder="Enter your real surname" required>
+            <hr>
+            <input type="submit" value="save" class="btn btn-success" id="btnSaveReal">
+        </form>
+
+
+    </div>
+    <div class="col-md-5" align="center" >
+        <hr  color="yellowgreen" style=" height: 2px;">
+        <a href="RandomImages.html" style="text-decoration: none">
+            <div class="RImageBtn">
+                <div class="BtnTitle"><b>Random image</b></div>
+            </div>
+        </a>
+
+        <hr>
+
+        <a href="chat.html" onclick="alert('Chat in process develop '); return false;" style="text-decoration: none">
+            <div class="ChatBtn">
+                <div class="BtnTitle"><b>Go to chat</b></div>
+            </div>
+        </a>
+
+        <hr>
+
+        <a href="Setting.html" style="text-decoration: none">
+            <div class="SettingBtn">
+                <img class="settingImage" src="../style/img/setting.png" alt="error">
+                <div class="BtnTitle">
+
+                    <b>Setting</b>
+                </div>
+            </div>
+        </a>
+
+        <hr>
+    </div>
+
+</div>
+
+</div>
+<script>
+    var RealName = document.getElementById("RealName");
+    var RealSurName = document.getElementById("RealSurName");
+    function ChangeSavedReal() {
+        $(".ChangeSaved").html("<h2>Saved</h2>");
+        $(".ChangeSaved").css("background-color","yellowgreen");
+        $(".ChangeSaved").css("box-shadow","  0 0  10px 3px yellowgreen");
+        $(".ChangeSaved").css("opacity","1");
+        $(".ChangeSaved").css("margin-top","3%");
+        setTimeout(function () {
+            $(".ChangeSaved").css("opacity","0");
+            $(".ChangeSaved").css("margin-top","-15%");
+            window.location.reload();
+        },3000);
+
+    }
+    function NoChangeSavedName() {
+        $(".ChangeSaved").html("<h2>This name is exist</h2>");
+        $(".ChangeSaved").css("background-color","red");
+        $(".ChangeSaved").css("box-shadow","  0 0  10px 3px red");
+        $(".ChangeSaved").css("opacity","1");
+        $(".ChangeSaved").css("margin-top","4%");
+        setTimeout(function () {
+            $(".ChangeSaved").css("opacity","0");
+            $(".ChangeSaved").css("margin-top","-15%");
+        },3000);
+
+    }
+    $('#FormRealName').submit(function() {
+       var data = $("#FormRealName").serializeArray();
+        $.ajax({
+            url: "/change",
+            type: "POST",
+            data: data,
+            success: function (res) {
+                console.log("Save : ", res);
+                if(res.saved) {
+                    ChangeSavedReal();
+                } else if(!res.saved) {
+                    console.log("Save : ", res);
+                    NoChangeSavedName();
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+        return false;
+    });
+
+</script>
+</body>
+</html>

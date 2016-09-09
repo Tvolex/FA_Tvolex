@@ -1,0 +1,306 @@
+ <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+ <head>
+     <title>Enter</title>
+     <link rel="stylesheet" type="text/css" href="../style/style.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+     <script src="../scripts/cookie.js"></script>
+     <script>
+         $.ajax({
+             url: "/login",
+             type: "GET",
+             success: function (res) {
+                 console.log("RESPONSE: ", res);
+                 if(res) {
+                     window.location.replace("MyOffice.html");
+                 }
+             }
+         });
+     </script>
+ </head>
+ <header>
+     <div class="dropdown">
+         <button class="btn  btn-primary" style="height:45px;width: 100px" data-toggle="dropdown">Menu </button>
+         <ul class="dropdown-menu" role="menu" >
+             <li><a   href="index.html">Home</a></li>
+             <li><a  href="AboutUs.html">About Us</a></li>
+             <li><a  href="MyOffice.html">Account</a></li>
+             <li><a  href="Enter.html">Sign In</a></li>
+         </ul>
+         <input type="button" id="btnExit" value="Exit" class="btn btn-danger"  />
+     </div>
+     <script>
+         if($.cookie("btnExit") == undefined) {
+             $("#btnExit").remove();
+         }
+         $("#btnExit").click(function () {
+             $.removeCookie('btnExit');
+             $.ajax({
+                 url: "/delete",
+                 type: "POST",
+                 success:function (res) {
+                     if(res == "del") {
+                         window.location.href = "index.html";
+                     }
+                 },
+                 error: function (err) {
+                     console.log("Error", err);
+                     alert("Error", err);
+                 }
+             });
+             $("#btnExit").remove();
+         });
+
+
+     </script>
+ </header>
+
+<body class="EnterBody">
+
+
+<div id="ChangeUp" align="center">Sign Up</div>
+<div id="ChangeIn" align="center">Sign In</div>
+<div id="line"></div>
+<div id="UpBlock" >
+    <h1 id="SignUpHeader" align="center">Sign Up</h1>
+    <form action="" method="post" name="Register" id="Register" >
+        <input  name="UserEmail"  type="email" class="TextEnter" minlength="3" id="RegUserEmail" placeholder="Enter email"   required>
+        <span id="validLogin"></span>
+        <br><br>
+        <input name="RegisterPassword" type="password" id="passwordReg" minlength="6"  class="TextEnter" placeholder="Enter password" required>
+        <span id="validPass"></span>
+        <br><br>
+        <input type="password" name="confirmPassword" id="ConfirmPassword" minlength="6" class="TextEnter" placeholder="Confirm password" required>
+        <span id="validPassConf"></span>
+        <h5 align="center" id="infoReg" >You entered wrong login or password</h5>
+        <input type="submit" name="SubmitSignUp" value="Sign Up" id="SubmitSignUp" class="SubmitSign">
+
+    </form>
+
+</div>
+ <div id="InBlock"  >
+        <h1 id="HeadSignIn" align="center">Sign In</h1>
+        <form action="http://localhost:3000/Authorization" method="post" name="Enter" id="Enter">
+            <input name="UserEmail" id="UserEmail"  type="email" class="TextEnter"  minlength="3"    placeholder="Enter email" autofocus required>
+            <br>
+            <br>
+            <input name="password" id="password"   type="password" class="TextEnter" minlength="6"  placeholder="Enter password" required>
+            <h5 align="center" id="info"> You entered wrong login or password</h5>
+            <input class="SubmitSign " type="button" id="SignIn"   value="Sign In" >
+        </form>
+
+    </div>
+
+ <script >
+function ChangeBlock () {
+    var ChangeUp = $("#ChangeUp");
+    var ChangeIn = $("#ChangeIn");
+    var UpBlock = $("#UpBlock");
+    var InBlock = $("#InBlock");
+    var line = $("#line");
+    var body = $("body");
+    ChangeUp.click(function () {
+        line.addClass("line");
+        line.removeAttr("id", "line");
+        InBlock.addClass("InBlock");
+        InBlock.removeAttr("id", "InBlock");
+
+        setTimeout(function () {
+            InBlock.hide();
+        }, 500);
+        UpBlock.removeAttr("id", "UpBlock");
+        UpBlock.addClass("UpBlock");
+    });
+
+
+    ChangeIn.click(function () {
+
+        line.removeAttr("class", "line");
+        line.attr("id", "line");
+        UpBlock.removeAttr("class", "UpBlock");
+        UpBlock.attr("id", "UpBlock");
+        InBlock.show(10);
+        InBlock.attr("id", "InBlock");
+        InBlock.removeAttr("class", "InBlock");
+    });
+}
+ChangeBlock();
+
+function Registers() {
+    var RegUserEmail = document.getElementById("RegUserEmail");
+    var passwordReg = document.getElementById("passwordReg");
+    var passwordConfirm = document.getElementById("ConfirmPassword");
+    var infoReg = $("#infoReg");
+    var UpBlock = $(".UpBlock");
+    var regPass = /^[a-z0-9]{6,}$/i;
+    var reg = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+
+    function CheckLogin() {
+        if(reg.test(RegUserEmail.value)) {
+            var data = $(RegUserEmail).serializeArray();
+            $.ajax({
+                url: "/CheckLogin",
+                type: "POST",
+                data: data,
+                success: function (res) {
+                    console.log("Login is busy? " + res.IsBusy);
+                    if(res.IsBusy == false) {
+                        $("#validLogin").css({"background-image": "url('style/img/checkYes.png')"});
+                        infoReg.css("opacity", "0");
+
+                    } else {
+                        $("#validLogin").css({"background-image": "url('style/img/checkNo.png')"});
+                        infoReg.css("opacity", "1");
+                        infoReg.css("color", "red");
+                        infoReg.text("This email is busy");
+                    }
+                }
+            });
+        } else {
+            $("#validLogin").css({"background-image": "url('style/img/checkNo.png')"});
+            infoReg.css("opacity", "1");
+            infoReg.css("color", "red");
+            infoReg.text("Wrong email");
+        }
+
+
+
+    }
+    function CheckPass() {
+        if (regPass.test(passwordReg.value)) {
+            $("#validPass").css({"background-image": "url('style/img/checkYes.png')"});
+        } else {
+            $("#validPass").css({"background-image": "url('style/img/checkNo.png')"});
+        }
+    }
+    function CheckPassConf() {
+        if (passwordReg.value == passwordConfirm.value) {
+                $("#validPassConf").css({"background-image": "url('style/img/checkYes.png')"});
+            infoReg.css("opacity", "0");
+
+        } else {
+            $("#validPassConf").css({"background-image": "url('style/img/checkNo.png')"});
+            infoReg.css("opacity", "1");
+            infoReg.css("color", "red");
+            infoReg.text("Wrong password");
+        }
+    }
+    $(passwordConfirm).blur(function () {
+        CheckPassConf();
+    });
+    $(passwordReg).blur(function () {
+        CheckPass();
+    });
+    $(RegUserEmail).blur(function () {
+        CheckLogin();
+    });
+    $("#Register").submit(function () {
+        if(regPass.test(passwordReg.value)) {
+            if (passwordReg.value == passwordConfirm.value) {
+                var data = $("#Register").serializeArray();
+                $.ajax({
+                    url: "/Register",
+                    type: "POST",
+                    data: data,
+                    success: function (res, err) {
+                        if (res.isError == true) {
+                            console.log("Error from server: " ,err);
+                            console.log("Error" , err);
+                            infoReg.css("opacity", "1");
+                            infoReg.css("color", "red");
+                            infoReg.text("ERROR: " , err);
+                        } else if (res.IsBusy == true) {
+                            //користувач є в базі
+                            infoReg.css("opacity", "1");
+                            infoReg.css("color", "red");
+                            infoReg.text("This login is busy");
+                        } else if (res.IsBusy == false) {
+                            console.log("Login is busy? " + res.IsBusy);                              //користувача немає в базі
+                            infoReg.css("opacity", "0");
+                            $("#SignUpHeader").css("opacity", "0");
+                            $("#Register").css("opacity", "0");
+                            setTimeout(function () {
+                                $(".UpBlock").empty();
+                                $(".UpBlock").append('<div class="saved" style="display: none" align="center"><h1>Saved</h1>' +
+                                        '<br>' + '<h3 style="color: black">Hello ,</h3>' + '<br>' +
+                                        '<a id="GoToOffice" style="color: #333" href="/MyOffice.html">Go to office</a> ' +
+                                        '</div>');
+                                $("h3").append(RegUserEmail.value);
+                                $(".saved").show("slow");
+                            }, 100);
+                        } else {
+                            console.log("Error : not correct response from server ");
+                            infoReg.css("opacity", "1");
+                            infoReg.css("color", "red");
+                            infoReg.text("Error : not correct response from server");
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        infoReg.css("opacity", "1");
+                        infoReg.css("color", "red");
+                        infoReg.text("ERROR: " + err);
+                    }
+                })
+            }
+        } else {
+            infoReg.css("opacity", "1");
+            infoReg.css("color", "red");
+            infoReg.text("Wrong password");
+            }
+        return false;
+    });
+}
+Registers();
+
+function Authorization() {
+    var UserEmail = document.getElementById("UserEmail");
+    var password = document.getElementById("password");
+    var info = $("#info");
+    var url = "/Authorization";
+
+
+    $("#SignIn").click(function () {
+      event.preventDefault();
+        if(UserEmail.value && password.value) {
+            var data = $("#Enter").serializeArray();
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function (res) {
+                    console.log("Done:");
+                    console.log("Login: " + UserEmail.value);
+                    console.log("Response from server, name: " + res.UserEmail);
+                    if(res.UserEmail ==UserEmail.value) {
+                        info.css("color","black");
+                        info.text("Hello, " + UserEmail.value);
+                        info.css("opacity","1");
+                        window.location.href = "MyOffice.html";
+                    } else {
+                        info.css("color","red");
+                        info.text("Wrong login or password");
+                        info.css("opacity","1")
+                    }
+                },
+                error: function (err) {
+                    console.log( err);
+                    info.text("Error: not connection to DB");
+                    info.css("opacity","1");
+                    info.css("color","red");
+                }
+            });
+        } else {
+            info.text("Please, first enter data...");
+            info.css("opacity","1");
+            info.css("color","red");
+        }
+    })
+}
+Authorization();
+ </script>
+</body>
+</html>

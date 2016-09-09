@@ -1,4 +1,4 @@
-import config from './config';
+const config = require('./config');
 import express from 'express';
 import http from 'http';
 import mongodb from 'mongodb';
@@ -9,7 +9,10 @@ import path from 'path';
 import connect from 'connect';
 
 const app = express();
+const DBurl = config.DBurl;
 var MongoClient = mongodb.MongoClient;
+var routes = require('./routes/index');
+
 
 app.use(cookieParser());
 app.use(session({
@@ -18,7 +21,7 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(bodyParser());
-
+app.use('/', routes);
 app.use(express.static(path.join(__dirname,"../public")));
 app.post("/Authorization", function (req,res,next) {
     console.log("Session ID: " , req.sessionID);
@@ -153,40 +156,7 @@ app.post("/Register", function (req,res) {
     })
 });
 
-app.get("/login",function (req,res) {
-    var Session = {};
-    Session.id = req.session.id;
-    Session.UserEmail = req.session.UserEmail;
-    MongoClient.connect(DBurl, function (err,db) {
-        if(err) {
-            console.log("Error", err);
-        } else {
-            console.log("Connection to db: " + DBurl);
-            var collection = db.collection("users");
-            console.log("UserEmail: " + Session.UserEmail);
-            console.log("sess id: " , req.session.id);
-            collection.find({"UserEmail" : Session.UserEmail, "SessionID" : req.session.id}).limit(1).next(function (err, doc) {
-                if(err) {
-                    console.log("Login");
-                    console.log("Error : " + err);
-                } else if(doc) {
-                    console.log("Login");
-                    console.log("Found: ", doc.UserEmail);
-                    res.cookie('btnExit', true);
-                    res.status(200).json(doc);
 
-                } else if(!doc) {
-                    console.log("Login");
-                    res.clearCookie('btnExit');
-                    console.log("Found:", doc);
-                    res.json(doc);
-                }
-                db.close();
-            });
-
-        }
-    });
-});
 app.post("/CheckLogin",function (req,res) {
     var user = {};
     user.UserEmail = req.body.UserEmail;
@@ -355,5 +325,5 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(config.port, () => {
-    console.log('Perfect!');
+    console.log('Server start on port ' + config.port);
 });
