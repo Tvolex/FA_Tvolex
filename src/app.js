@@ -7,69 +7,33 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import connect from 'connect';
+import login from './routes/login/index';
+import Auth from './routes/Authorization/index';
+import Register from './routes/Register/index';
+import deleteAcc from './routes/deleteAcc/index';
+import CheckLogin from './routes/CheckLogin/index';
+
 
 const app = express();
 const DBurl = config.DBurl;
 var MongoClient = mongodb.MongoClient;
-var routes = require('./routes/index');
 
 
 app.use(cookieParser());
+app.use(bodyParser());
 app.use(session({
     secret: 'Tvolex hehehehe 2016',
     resave: false,
     saveUninitialized: true
 }));
-app.use(bodyParser());
-app.use('/', routes);
-app.use(express.static(path.join(__dirname,"../public")));
-app.post("/Authorization", function (req,res,next) {
-    console.log("Session ID: " , req.sessionID);
-    var UserEmail = req.body.UserEmail;
-    var UserPassword = req.body.password;
-    var HaveUser = {};
 
-    if (UserEmail != undefined) {
-        MongoClient.connect(DBurl, function (err, db) {
-            if (err) {
-                console.log('Unable to connect to the mongoDB server. Error:', err);
-            } else {
-                console.log('Connection to', DBurl);
-                var collection = db.collection('users');
-                collection.find({"UserEmail": UserEmail, "password": UserPassword}).toArray(function (err, result) {
-                    if (err) {
-                        console.log(err);
-                    } else if (result.length) {                                                      // в бд є такий юзер
-                        HaveUser.UserEmail = UserEmail;
-                        collection.updateOne({"UserEmail": UserEmail}, {$set: {"SessionID" : req.sessionID}});
-                        req.session.UserEmail = UserEmail;
-                        console.log("Authorization");
-                        console.log("Found: ", result);
-                        console.log("Login: " + UserEmail);
-                        console.log("Password: " + UserPassword);
-                        res.cookie('btnExit', true);
-                        res.send(200,HaveUser);
-                        res.end();
-                    } else {                                                                  // в бд немає такого юзера
-                        HaveUser.UserEmail = undefined;
-                        console.log("Authorization");
-                        console.log('No document found : ' + UserEmail);
-                        console.log("Login: " + UserEmail);
-                        console.log("Password: " + UserPassword);
-                        res.send(401,HaveUser);
-                        res.end();
-                    }
-                    db.close();
-                });
-            }
-        });
-    } else {
-        res.send(400,"Email undefined");
-        res.end();
-    }
+app.use('/Authorization', Auth);
+app.use('/Register', Register);
+app.use('/CheckLogin', CheckLogin);
+app.use('/login', login);
+app.use('/deleteAcc', deleteAcc);
 
-
-});
+app.use(express.static(path.join(__dirname,"../../public/html")));
 app.post("/AuthForDesktop",function (req,res) {
     var UserEmail = req.headers.email;
     var UserPassword = req.headers.password;
@@ -114,82 +78,8 @@ app.post("/AuthForDesktop",function (req,res) {
     }
 });
 
-app.post("/Register", function (req,res) {
-    var UserEmail = req.body.UserEmail;
-    var RegisterPassword = req.body.RegisterPassword;
-    MongoClient.connect(DBurl, function (err,db) {
-        if(err) {
-            console.log("Error" + err);
-            var DBError = {};
-            DBError.isError = true;
-            DBError.descripError = err;
-            res.send(DBError);
-            res.end();
-        } else {
-            console.log("Connection to db: " + DBurl);
-            var collection = db.collection("users");
-            var user = {};
-            collection.find({"UserEmail" : UserEmail}).toArray(function (err,result) {
-                if(err) {
-                    console.log("Error : " + err);
-                } else if(result.length) {
-                    // перенаправлення на /CheckLogin  - провірка логіна
-                    console.log("User exist");
-                    res.redirect("/CheckLogin");
-                    res.end();
-                } else if(!result.length) {
-                    // тут користувач здійснює саму реєстрацію
-                    user.IsBusy = false;
-                    var UsersDocument = {"UserEmail" : UserEmail, "password" : RegisterPassword, "SessionID" : req.sessionID};
-                    collection.insertOne(UsersDocument);
-                    collection.createIndex({"name" : 1}, {"unique" : true});
-                    console.log("New user : " , UserEmail);
-                    req.session.UserEmail = UserEmail;
-                    res.cookie('btnExit', true);
-                    res.status(200).send(user);
-                    res.end();
-                }
-                db.close();
-            });
-
-        }
-    })
-});
 
 
-app.post("/CheckLogin",function (req,res) {
-    var user = {};
-    user.UserEmail = req.body.UserEmail;
-    MongoClient.connect(DBurl, function (err,db) {
-        if(err) {
-            console.log("Error", err);
-        } else {
-            console.log("Connection to db: " + DBurl);
-            var collection = db.collection("users");
-            collection.find({"UserEmail" : user.UserEmail}).limit(1).toArray(function (err, result) {
-                if(err) {
-                    console.log("Check Login");
-                    console.log("Error : " + err);
-                } else if(result.length) {
-                    console.log("Check Login");
-                    console.log("Found: ", result.length);
-                    user.IsBusy = true;
-                    res.status(200).send(user);
-                    res.end();
-
-                } else if(!result.length) {
-                    console.log("Check Login");
-                    console.log("Found:", result.length);
-                    user.IsBusy = false;
-                    res.status(200).send(user);
-                    res.end();
-                }
-                db.close();
-            });
-
-        }
-    });
-});
 app.post("/change",function (req,res) {
     var UserEmail =  req.session.UserEmail;
     var NewUserEmail = req.body.UserEmail;
@@ -290,24 +180,6 @@ app.post("/delete",function (req,res) {
     res.clearCookie('btnExit');
     res.send("del");
 });
-app.post("/deleteAcc",function (req,res) {
-    console.log("Session destroyed");
-    console.log("Account delete: " + UserEmail);
-    var UserEmail =  req.session.UserEmail;
-    MongoClient.connect(DBurl, function (err,db) {
-        if(err) {
-            console.log(err)
-        } else {
-            console.log("Connection to db: " + DBurl);
-            var collection = db.collection("users");
-            collection.removeOne({"UserEmail" : UserEmail});
-            db.close();
-        }
-    });
-    req.session.destroy();
-    res.clearCookie('btnExit');
-    res.send("del");
-});
 
 app.get("/ping", function (req,res) {
     console.log("____________________________________________________________________________________________________");
@@ -315,14 +187,7 @@ app.get("/ping", function (req,res) {
     res.send(req);
     res.end();
 });
-app.use(function(req, res, next) {
-    res.status(404);
-    res.sendfile("error/404/index.html");
-});
-app.use(function(err, req, res, next) {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-});
+
 
 app.listen(config.port, () => {
     console.log('Server start on port ' + config.port);
