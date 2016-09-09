@@ -1,0 +1,933 @@
+* {
+    font-family: Verdana;
+    font-weight: normal;
+
+
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+body  {background-color: whitesmoke;
+     background-size:cover;
+     z-index: -2;
+     transition: 0.3s all;
+     opacity: 1;
+ }
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+header{
+    z-index: 10;
+    position: fixed;
+    width: 100%;
+    height: 45px;
+    border-bottom: 2px solid black ;
+    background-color:#303030;
+}
+footer {
+    margin-top: 5%;
+     bottom: 0;
+     width: 100%;
+     /* Set the fixed height of the footer here */
+     height: 200px;
+     background-color: #696969;
+ }
+.footer-menu{
+    text-decoration: none;
+    color: whitesmoke;
+}
+.ContentTitle{
+
+    padding-top: 5%;
+}
+.randomTitle{
+    padding: 5px;
+    width: 40%;
+
+    background: rgba(245, 222, 179,0.8);
+    border-radius: 50%;
+}
+#p_prldr{
+     position: fixed;
+     left: 0;
+     top: 0;
+     right:0;
+     bottom:0;
+     background: #ffffff;
+     z-index: 30;}
+
+.contpre small{font-size:5px;}
+
+.contpre{
+    width: 250px;
+    height: 100px;
+    position: absolute;
+    left: 50%;top: 48%;
+    margin-left:-125px;
+    margin-top:-75px;
+    color:white;
+    font-size:40px;
+    letter-spacing:-2px;
+    text-align:center;
+    line-height:35px;
+}
+
+#p_prldr .svg_anm {
+    position: absolute;
+    width: 41px;
+    height: 41px;
+    background: url("gif/Cop.gif") center center no-repeat;
+    background-size:41px;
+    margin: 40px 0 0 -16px;}
+#IndexBodyImg {
+    background-image: url("https://unsplash.it/1920/1080?random");
+}
+.hello{
+    width: 400px;
+    height: 70px;
+    padding-top: 1px;
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 50%;
+
+}
+/* RANDOM IMAGES */
+.ImageR{
+    position: relative;
+    overflow:hidden;
+    cursor: pointer;
+    margin:4vw 0 0 4vw ;
+    width:44vw;
+    height:25vw;
+    float: left;
+    border:1px solid;
+}
+.img-1 {
+    background:black url('//unsplash.it/960/540/?random=1') center/0;
+    background-repeat:  no-repeat;
+}
+.img-2 {
+    background:black url('//unsplash.it/960/540/?random=2') center/0;
+    background-repeat:  no-repeat;
+}
+.img-3 {
+    background:black url('//unsplash.it/960/540/?random=3') center/0;
+    background-repeat:  no-repeat;
+}
+.img-4 {
+    background:black url('//unsplash.it/960/540/?random=4') center/0;
+    background-repeat:  no-repeat;
+}
+.img-5 {
+    background:black url('//unsplash.it/960/540/?random=5') center/0;
+    background-repeat:  no-repeat;
+}
+.img-6 {
+    background:black url('//unsplash.it/960/540/?random=6') center/0;
+    background-repeat:  no-repeat;
+}
+
+.animate:after {
+    transition:all 1s;
+    transform-origin: center;
+    content: '';
+    display:block;
+    position: absolute;
+    top:0;right:0;bottom:0;left:0;
+    background: inherit;
+    background-size:cover;
+
+}
+.fade-in:after { opacity:0.7 }
+.fade-in.js-press:after,
+.fade-in:hover:after  { opacity:1;  }
+.btnReload{
+    width: 50%;
+    margin-top: 5%;
+
+}
+
+
+
+.row  {
+    border: solid black 0px;
+    transition: 0.3s all;
+    margin-top: 5px;
+
+
+}
+
+.fontDev{
+    z-index: 1;
+    position: relative;
+    float: left;
+    margin-left: 75%;
+    margin-top: -150px;
+    left: -80px;
+    width: 160px;
+    /*border: dashed 3px #fee100;*/
+    font-family: fantasy;
+    font-size: 6em;
+}
+#fontDevV {
+    float: left;
+    position:absolute;
+    margin-left: 35%;
+    margin-top: 30px;
+    left:-80px;
+    width: 160px;
+    color: whitesmoke;
+    font-family: fantasy;
+    font-size: xx-large;
+}
+
+#fontDevS {
+    position: absolute;
+    margin-left: 0;
+    margin-top: -80px;
+    left: 700px;
+    width: 160px;
+    color: black;
+    font-family: fantasy;
+    font-size: xx-large;
+}
+#fontDevN {
+    float: left;
+    position:absolute;
+    margin-left: 35%;
+    margin-top: 30px;
+    left:-80px;
+    width: 160px;
+    color: whitesmoke;
+    font-family: fantasy;
+    font-size: xx-large;
+}
+.fontDevs{
+    float: left;
+    position:absolute;
+    margin-left: 50%;
+    margin-top:5%;
+    left:-80px;
+    width: 160px;
+    color: whitesmoke;
+    font-family: fantasy;
+    font-size: xx-large;
+}
+section {
+
+    user-select: none;
+}
+section::selection {
+
+    background:none;
+
+}
+.btnCopy {
+    background: url("img/clipboard.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    outline: none;
+    border: none;
+}
+#NikasEmail, #VasyasEmail,#StanislawsEmail {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.toTop{
+    background-image: url("img/todown.jpg");
+    background-size: cover;
+    position: absolute;
+    left: 50%;
+    margin-top: 3%;
+    margin-left: -15px;
+    border: solid 2px white;
+    height:30px;
+    width: 30px;
+    transition: 3.5s all;
+    transform: rotate(180deg);
+
+}
+.todown{
+    background-image: url("img/todown.jpg");
+    background-size: cover;
+
+    position: absolute;
+    left: 50%;
+    margin-top: 3%;
+    margin-left: -15px;
+    border: solid 2px white;
+    height:30px;
+    width: 30px;
+}
+#firstSlide{
+
+
+    padding: 200px 20% 10% 20%;
+    height: 50%;
+    width: 100%;
+    background-image: url('img/1back.jpg');
+    background-repeat: no-repeat;
+
+}
+#secondSlide{
+    padding: 200px 0 0;
+    height: 500px;
+    width: 100%;
+    background-image: url('img/2back.jpg');
+    background-repeat: no-repeat;
+
+
+}
+#thirdSlide{
+    padding: 200px 0 0;
+    height: 500px;
+    width: 100%;
+    background-image: url('img/3back.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-top: 10%;
+
+}
+#fourthSlide{
+    padding: 200px 0 0;
+    height: 600px;
+    width: 100%;
+    background-image: url('img/4back.jpg');
+    background-repeat: no-repeat;
+    margin-top: 10%;
+
+}
+.backImg{
+    position:fixed;
+    background-image: url('img/grey.jpg');
+    background-size:contain;
+    height: 100%;
+    width: 100%;
+}
+.DevPicture {
+    position: relative;
+    margin-left:50%;
+    left: -550px;
+    margin-top: 0;
+    background-image: url('img/DevPicture.jpg');
+    background-repeat:round;
+    background-size:cover;
+    border: solid 2px black;
+    height: 400px;
+    width: 1100px;
+}
+.DevsPhotoV {
+    position: absolute;
+    left: 30%;
+    margin-left: -225px;
+    height: 200px;
+    width: 200px;
+    margin-top: -50px;
+    background-image: url("img/Vasya.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: dashed 2px white;
+    border-radius: 100%;
+}
+.DevsPhotoN {
+    position: absolute;
+    left: 30%;
+    margin-left: -225px;
+    height: 200px;
+    width: 200px;
+    margin-top: -50px;
+    background-image: url("img/Nika.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: dashed 2px white;
+    border-radius: 100%;
+}
+#descriptionV{
+    color: whitesmoke;
+    position: relative;
+    margin-left: 50%;
+    margin-top: -120px;
+}
+#descriptionS{
+    color: black;
+    position: relative;
+    margin-left: -50%;
+    margin-top: -200px;
+}
+#descriptionN{
+    color: whitesmoke;
+    position: relative;
+    margin-left: 50%;
+    margin-top: -120px;
+}
+
+.DevsPhotoS {
+    position: absolute;
+    left: 87%;
+    margin-left: -225px;
+    height: 200px;
+    width: 200px;
+    margin-top: -150px;
+    background-image: url("img/Stas.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    border: dashed 2px black;
+    border-radius: 100%;
+}
+#linkVKV {
+    position: relative;
+    margin-left: -50%;
+    margin-top: -50px;
+    background-image: url("img/VK.jpg");
+    background-repeat:round;
+    background-size:cover;
+    height:30px;
+    width: 30px;
+    border-radius: 35%;
+    border: solid 1px white;
+
+}
+#linkFBV {
+    position: absolute;
+    left: 23%;
+    margin-left: -15px;
+    margin-top: -45px;
+    background-image: url("img/FB.jpg");
+    background-repeat:round;
+    background-size:cover;
+    height: 30px;
+    width: 30px;
+    border-radius: 35%;
+    border: solid 1px white;
+}
+
+#linkVKS {
+    position: relative;
+    margin-left: 63%;
+    margin-top: -50px;
+    background-image: url("img/VK.jpg");
+    background-repeat:round;
+    background-size:cover;
+    height:30px;
+    width: 30px;
+    border-radius: 35%;
+    border: solid 1px black;
+}
+
+#linkFBS {
+    position: absolute;
+    left: 79.5%;
+    margin-left: -15px;
+    margin-top: -45px;
+    background-image: url("img/FB.jpg");
+    background-repeat:round;
+    background-size:cover;
+    height: 30px;
+    width: 30px;
+    border-radius: 35%;
+    border: solid 1px black;
+}
+
+.EnterBody {
+    background-image: url("img/SanFrancisco.jpg");
+
+}
+
+/* SCROLL  */
+::-webkit-scrollbar { width: 10px; height: 10px;}
+
+::-webkit-scrollbar-button {  background-color: #666; }
+
+::-webkit-scrollbar-track {  background-color: #999;}
+
+::-webkit-scrollbar-track-piece { background-color: #ffffff;}
+
+::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;}
+
+::-webkit-scrollbar-corner { background-color: #999;}
+
+::-webkit-resizer { background-color: #666;}
+
+
+
+.clear {
+    clear: none;
+}
+
+h1   {
+    color: black;
+}
+.SubmitSign {
+    border: solid 2px black;
+    width: 50%;
+    margin-top: 13%;
+    margin-left: 25%;
+    transition: 0.4s all;
+    background-color: #fbe59d;
+    outline: none;
+}
+.SubmitSign:hover {
+    width: 50%;
+    margin-top: 13%;
+    margin-left: 25%;
+    color: white;
+    background-color: black;
+    border-radius: 50%;
+    transition: 0.4s all;
+    outline: none;
+}
+.SubmitSign:active {
+    width: 50%;
+    margin-top: 13%;
+    margin-left: 25%;
+    color: white;
+    background-color: blue;
+    border-radius: 50%;
+    transition: 0.4s all;
+    outline: none;
+}
+#NotHaveAccount {
+    color: red;
+    cursor:pointer;
+}
+#HaveAccount {
+    color: yellowgreen;
+    cursor:pointer;
+}
+.TextEnter {
+    background-color: inherit;
+    width: 85%;
+    border: solid 1px black;
+    margin-left: 6.5%;
+    text-align: center;
+    color: black;
+    letter-spacing: 1px;
+
+
+}
+.TextEnter::-webkit-input-placeholder {
+    letter-spacing: 1px;
+    color:#332037 ;
+}
+
+#ChangeUp{
+    cursor: pointer;
+    float: left;
+    margin-top: 10%;
+    margin-left: 40%;
+    width: 7%;
+    transition: 0.5s all;
+    z-index: 5;
+}
+#ChangeIn{
+    cursor: pointer;
+    float: right;
+    margin-top: 10%;
+    margin-right: 38%;
+    width: 7%;
+    transition: 0.5s all;
+
+}
+#ChangeIn:hover {
+    border-radius: 50%;
+    background-color: whitesmoke;
+    transform: scaleY(1.5);
+}
+#ChangeUp:hover {
+    border-radius: 50%;
+    background-color: whitesmoke;
+    transform: scaleY(1.5);
+}
+#Register{
+    transition: 0.5s all;
+}
+#line{
+    position: absolute;
+    float: left;
+    margin-top: 13%;
+    margin-left: 55%;
+    width: 7%;
+
+    border-bottom: solid 2px black;
+
+transition: 0.9s all;
+}
+.line{
+    position: absolute;
+    float: left;
+    margin-top: 13%;
+    margin-left: 40%;
+    width: 7%;
+    border-bottom: solid 2px black;
+    transition: 0.9s all;
+}
+#UpBlock {
+    padding: 2% 0 2% 0;
+    position: absolute;
+    float: left;
+    margin-left: -30% ;
+    margin-top: 15%;
+    border: solid 2px black;
+    width: 30%;
+    min-height: 300px;;
+    transition: 1s all;
+    opacity: 0;
+    transform: scaleY(0.7) scaleX(0.7);
+}
+#InBlock {
+    padding: 2% 0 2% 0;
+    position: absolute;
+    float: left;
+    margin-left: 35% ;
+    margin-top: 15%;
+    border: solid 2px black;
+    width: 30%;
+    min-height: 300px;
+
+    opacity: 1;
+    transition: 0.5s all;
+    background: rgba(255, 255, 255, 0.6);
+}
+.InBlock {
+
+    position: absolute;
+    float: left;
+    margin-left: 70% ;
+    margin-top: 15%;
+    padding: 2% 0 2% 0;
+    border: solid 2px black;
+    width: 30%;
+    min-height: 40%;
+    transition: 0.5s all;
+    opacity: 0;
+    transform: scaleY(0.7) scaleX(0.7);
+
+}
+.UpBlock {
+    padding: 2% 0 2% 0;
+    position: absolute;
+    float: left;
+    margin-left: 35% ;
+    margin-top: 15%;
+    border: solid 2px black;
+    width: 30%;
+    min-height: 300px;
+    transition: 0.7s all;
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.6);
+}
+.UpBlockCont {
+    padding: 2% 0 2% 0;
+    position: absolute;
+    float: left;
+    margin-left: 35% ;
+    margin-top: 15%;
+    border: solid 2px black;
+    width: 30%;
+    min-height: 300px;
+    transition: 0.7s all;
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.5);
+}
+#check {
+    margin-left: 50%;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: -50px;
+    transition: 0.5s all;
+}
+#SignUpHeader{
+    transition: 0.5s all;
+}
+#info{
+    color:black;
+    float:left;
+    position: absolute;
+    margin-top: 2%;
+    width: 50%;
+    margin-left: 25%;
+    transition: 0.5s all;
+    opacity: 0;
+
+}
+#infoReg{
+    color:red;
+    float:left;
+    position: absolute;
+    margin-top: 2%;
+    width: 50%;
+    margin-left: 25%;
+    transition: 0.5s all;
+    opacity: 0;
+
+}
+#validLogin {
+    position: absolute;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    transition: 0.5s all;
+}
+#validPass {
+    position: absolute;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    transition: 0.5s all;
+}
+#validPassConf {
+    position: absolute;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    transition: 0.5s all;
+}
+#BlockAboutUs {
+    padding: 1% 0% 0% 1%;
+    position: absolute;
+    float: left;
+    border: solid black 0px;
+    margin-top: 10%;
+    margin-left: 15%;
+    height: 70%;
+    width: 70%;
+    background: rgba(255, 255, 255, 0.7);
+}
+.load  {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    float: left;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: 5%;
+
+}
+.saved{
+    margin-top: 0%;
+    color: yellowgreen;
+}
+
+
+#Content {
+    position: absolute;
+    margin-top: 10%;
+    width: 100%;
+}
+#btnExit {
+    border: solid 2px black;
+    float: right;
+    width: 100px;
+    height:45px;
+}
+#avatar {
+    width: 50%;
+
+}
+#avatar:hover{
+    background-color: red;
+}
+
+
+.OpenAvatar{
+    transition: 0.4s all;
+    z-index: 3;
+    width: 90%;
+}
+
+hr{
+    z-index: 0;;
+}
+
+#HelloUser {
+    transition: 0.5s all;
+}
+#btnChange {
+    margin-top: 5%;
+    transition: 0.5s all;
+    width: 50%;
+}
+#btnSaveReal {
+
+    transition: 0.5s all;
+    width: 30%;
+}
+.ChangeSaved {
+    position: absolute;
+    margin-left: 50%;
+    left: -200px;
+    width: 400px;
+    height: 75px;
+    margin-top: -15%;
+    transition: 0.5s all;
+    opacity: 0;
+    z-index: 2;
+}
+.InputNamePass {
+    width: 45%;
+    border: 0;
+    height: 23px;
+    color: darkgreen;
+    text-align: center;
+}
+.SettingBtn{
+    width: 80%;
+    height: 20%;
+    border: solid 2px black;
+    z-index: 2;
+    transition: 0.3s all;
+
+}
+.SettingBtn:hover {
+     text-decoration: none;
+     color: lightyellow;
+
+     transition: 0.3s all;
+    z-index: 2;
+}
+.SettingBtn:hover .settingImage {
+    transform: rotate(180deg);
+    transition: 0.9s all;
+}
+.settingImage{
+    z-index: -1;
+    position: absolute;
+    margin-left: -10%;
+    margin-top: 1%;
+    width: 20%;
+}
+.settingImage:hover{
+    z-index: -1;
+}
+
+.ChatBtn{
+    width: 80%;
+    height: 20%;
+    border: solid 2px black;
+    color:black;
+    background-image: url("img/Chat.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+
+}
+.RImageBtn{
+    width: 80%;
+    height: 20%;
+    border: solid 2px black;
+    color:black;
+    background-image: url("//unsplash.it/1280/720?random");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+.BtnTitle {
+    z-index: 2;
+    font-size: large;
+    padding-top: 15%;
+    transition: 0.5s all;
+    opacity: 0;
+    height: 100%;
+    border: solid black 0px;
+}
+.BtnTitle:hover {
+    z-index: 2;
+    background-color: rgba(0,0,0, 0.5);
+    padding-top: 12%;
+    font-size: xx-large;
+    opacity: 1;
+    color: whitesmoke;
+}
+
+.GoBack {
+    border: solid 0px black;
+    height:calc(100% - 25px);
+    width: 100px;
+    position: absolute;
+    z-index: 1;
+    transition: 0.5s all;
+}
+
+.GoBack:hover {
+    background-color: rgba(0,0,0, 0.3);
+}
+.deleteAcc{
+    width: 80%;
+    height: 20%;
+    border: solid 2px black;
+}
+
+.InputNamePass:focus {
+    outline: solid yellowgreen 2px;
+    color: black;
+    padding-left: 1%;
+    height: 30px;
+
+}
+.InputNamePass::-webkit-input-placeholder {
+    letter-spacing: 1px;
+}
+.publish {
+    position: absolute;
+    border: solid black 0px;
+    width: 50%;
+    height: 75px;
+    margin-top: 30%;
+    margin-left: 50%;
+    left: -25%;
+}
+#inputMessage {
+    background-color: inherit;
+    width: 100%;
+    height: 100px;
+    border: solid 0px black;
+    text-align: center;
+    color: black;
+    letter-spacing: 1px;
+}
+#SendMessage {
+    position: absolute;
+    margin-top: 10%;
+    margin-left: 50%;
+    width: 150px;
+    left: -75px;
+}
+
+#subscribe {
+    position: absolute;
+    border: solid black 2px;
+    width: 50%;
+    height: 50%;
+    padding: 1% 0% 0% 1%;
+    overflow: scroll;
+    overflow-x: hidden;
+    margin-left: 50%;
+    left: -25%;
+}
+
+.GeneralBlockRandomImage {
+    padding-top: 100px;
+    height: 700px;
+    width: 600px;
+    border: solid black 2px;
+}
+.FormGetImage {
+    padding-top: 5%;
+}
+#randomImage{
+    border: solid black 2px;
+    height: 400px;
+    width: 500px;
+
+}
