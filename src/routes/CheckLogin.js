@@ -1,13 +1,12 @@
-import config from '../../config';
+import config from '../config';
 import mongodb from 'mongodb';
-var express = require('express');
-var router = express.Router();
-var MongoClient = mongodb.MongoClient;
-var app = express();
+import express from 'express';
+
+const router = express.Router();
+const MongoClient = mongodb.MongoClient;
 const DBurl = config.DBurl;
 
-
-router.post("/",function (req,res) {
+var CheckLogin = router.post("/",function (req,res) {
     var user = {};
     user.UserEmail = req.body.UserEmail;
     MongoClient.connect(DBurl, function (err,db) {
@@ -40,4 +39,5 @@ router.post("/",function (req,res) {
         }
     });
 });
-module.exports = router;
+
+module.exports = CheckLogin;

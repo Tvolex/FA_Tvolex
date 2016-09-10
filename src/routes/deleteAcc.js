@@ -1,15 +1,13 @@
-import config from '../../config';
+import config from '../config';
 import mongodb from 'mongodb';
-var express = require('express');
-var router = express.Router();
-var MongoClient = mongodb.MongoClient;
-var app = express();
+import express from 'express';
+
+const router = express.Router();
+const MongoClient = mongodb.MongoClient;
 const DBurl = config.DBurl;
 
-
-router.post("/",function (req,res) {
+var deleteAcc = router.post("/",function (req,res) {
     console.log("Session destroyed");
-    console.log("Account delete: " + UserEmail);
     var UserEmail =  req.session.UserEmail;
     MongoClient.connect(DBurl, function (err,db) {
         if(err) {
@@ -25,4 +23,5 @@ router.post("/",function (req,res) {
     res.clearCookie('btnExit');
     res.send("del");
 });
-module.exports = router;
+
+module.exports = deleteAcc;
