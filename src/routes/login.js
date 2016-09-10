@@ -12,13 +12,13 @@ var login = router.get('/', (req, res) => {
     Session.UserEmail = req.session.UserEmail;
     
     try {
-        MongoClient.connect(DBurl, function (err,db) {
+        MongoClient.connect(DBurl, (err,db) => {
             if(err) {
                 console.log("Error", err);
             } else {
                 console.log("Connection to db: " + DBurl);
                 var collection = db.collection("users");
-                collection.find({"UserEmail" : Session.UserEmail, "SessionID" : req.session.id}).limit(1).next(function (err, doc) {
+                collection.find({"UserEmail" : Session.UserEmail, "SessionID" : req.session.id}).limit(1).next((err, doc) => {
                     if(err) {
                         console.log("Error : " + err);
                     } else if(doc) {

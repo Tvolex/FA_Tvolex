@@ -6,10 +6,10 @@ const MongoClient = mongodb.MongoClient;
 
 const DBurl = config.DBurl;
 
-var Register = router.post("/", function (req,res) {
+var Register = router.post("/", (req,res) => {
     var UserEmail = req.body.UserEmail;
     var RegisterPassword = req.body.RegisterPassword;
-    MongoClient.connect(DBurl, function (err,db) {
+    MongoClient.connect(DBurl, (err,db) => {
         if(err) {
             console.log("Error" + err);
             var DBError = {};
@@ -21,7 +21,7 @@ var Register = router.post("/", function (req,res) {
             console.log("Connection to db: " + DBurl);
             var collection = db.collection("users");
             var user = {};
-            collection.find({"UserEmail" : UserEmail}).toArray(function (err,result) {
+            collection.find({"UserEmail" : UserEmail}).toArray((err,result) => {
                 if(err) {
                     console.log("Error : " + err);
                 } else if(result.length) {

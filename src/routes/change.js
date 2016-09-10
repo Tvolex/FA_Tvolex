@@ -5,7 +5,7 @@ import * as MongoClient from "mongodb/lib/mongo_client";
 const router = express.Router();
 const DBurl = config.DBurl;
 
-var change = router.post('/', function(req, res) {
+var change = router.post('/', (req, res) => {
     var UserEmail =  req.session.UserEmail;
     var NewUserEmail = req.body.UserEmail;
     var OldPass = req.body.OldPass;
@@ -17,11 +17,11 @@ var change = router.post('/', function(req, res) {
 
     if(NewUserEmail) {
         try {
-            MongoClient.connect(DBurl, function (db) {
+            MongoClient.connect(DBurl, (db) => {
 
                 console.log("Connection to db: " + DBurl );
                 var collection = db.collection("users");
-                collection.find({"UserEmail": NewUserEmail}).limit(1).toArray(function (err,result) {
+                collection.find({"UserEmail": NewUserEmail}).limit(1).toArray((err,result) => {
                     if(!result.length) {
                         collection.updateOne({"UserEmail": UserEmail}, {$set: {"UserEmail" : NewUserEmail}});
                         user.ChangeUserEmail = true;
@@ -40,13 +40,13 @@ var change = router.post('/', function(req, res) {
     }
     if(NewPass){
         try {
-            MongoClient.connect(DBurl, function (err,db) {
+            MongoClient.connect(DBurl, (err,db) => {
                 if(err) {
                     console.log("Error", err);
                 } else {
                     console.log("Connection to db: " + DBurl);
                     var collection = db.collection("users");
-                    collection.find({"UserEmail" : UserEmail, "password": OldPass}).limit(1).toArray(function (err, result) {
+                    collection.find({"UserEmail" : UserEmail, "password": OldPass}).limit(1).toArray((err, result) => {
                         if(err) {
                             console.log(err);
                         } else if(result.length) {
@@ -69,13 +69,13 @@ var change = router.post('/', function(req, res) {
     }
     if(RealName != undefined) {
         try {
-            MongoClient.connect(DBurl, function (err,db) {
+            MongoClient.connect(DBurl, (err,db) => {
                 if(err) {
                     console.log(err)
                 } else {
                     console.log("Connection to db: " + DBurl);
                     var collection = db.collection("users");
-                    collection.find({"UserEmail" : UserEmail}).limit(1).toArray(function (err, result) {
+                    collection.find({"UserEmail" : UserEmail}).limit(1).toArray((err, result) => {
                         if(err){
                             console.log(err)
                         } else if(result) {

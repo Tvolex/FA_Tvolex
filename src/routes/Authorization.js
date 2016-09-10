@@ -12,13 +12,13 @@ var Auth = router.post("/", (req,res) => {
     var HaveUser = {};
 
     try {
-        MongoClient.connect(DBurl, function (err, db) {
+        MongoClient.connect(DBurl, (err, db) => {
             if (err) {
                 console.log('Unable to connect to the MongoDB server. Error:', err);
             } else {
                 console.log('Connection to db', DBurl);
                 var collection = db.collection('users');
-                collection.find({"UserEmail": UserEmail, "password": UserPassword}).toArray(function (err, result) {
+                collection.find({"UserEmail": UserEmail, "password": UserPassword}).toArray((err, result) => {
                     if (err) {
                         console.log(err);
                     } else if (result.length) {                                                      // в бд є такий юзер

@@ -6,10 +6,10 @@ const router = express.Router();
 const MongoClient = mongodb.MongoClient;
 const DBurl = config.DBurl;
 
-var deleteAcc = router.post("/",function (req,res) {
+var deleteAcc = router.post("/", (req,res) => {
     console.log("Session destroyed");
     var UserEmail =  req.session.UserEmail;
-    MongoClient.connect(DBurl, function (err,db) {
+    MongoClient.connect(DBurl, (err,db) => {
         if(err) {
             console.log(err)
         } else {
