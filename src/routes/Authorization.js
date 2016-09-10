@@ -16,7 +16,7 @@ var Auth = router.post("/", (req,res) => {
             if (err) {
                 console.log('Unable to connect to the MongoDB server. Error:', err);
             } else {
-                console.log('Connection to', DBurl);
+                console.log('Connection to db', DBurl);
                 var collection = db.collection('users');
                 collection.find({"UserEmail": UserEmail, "password": UserPassword}).toArray(function (err, result) {
                     if (err) {

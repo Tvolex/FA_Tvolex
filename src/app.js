@@ -20,9 +20,11 @@ import deleteAcc from './routes/deleteAcc';
 import CheckLogin from './routes/CheckLogin';
 //noinspection JSUnresolvedVariable
 import change from './routes/change';
+//noinspection JSUnresolvedVariable
+import deleteS from './routes/deleteS'
 
 const app = express();
-const DBurl = config.DBurl;
+
 
 
 app.use(cookieParser());
@@ -44,8 +46,8 @@ app.use('/CheckLogin', CheckLogin);
 app.use('/login', login);
 app.use('/deleteAcc', deleteAcc);
 app.use('change', change);
-
-app.post("/AuthForDesktop",function (req,res) {
+app.use('/delete', deleteS);
+/*app.post("/AuthForDesktop",function (req,res) {
     var UserEmail = req.headers.email;
     var UserPassword = req.headers.password;
     var HaveUser= {};
@@ -87,110 +89,7 @@ app.post("/AuthForDesktop",function (req,res) {
         res.send(400,"Email undefined");
         res.end();
     }
-});
-
-
-
-app.post("/change",function (req,res) {
-    var UserEmail =  req.session.UserEmail;
-    var NewUserEmail = req.body.UserEmail;
-    var OldPass = req.body.OldPass;
-    var NewPass = req.body.NewPass;
-    var RealName = req.body.RealName;
-    var RealSurName = req.body.RealSurName;
-
-    var user = {};
-
-    if(NewUserEmail) {
-        try {
-            MongoClient.connect(DBurl, function (db) {
-                
-                    console.log("Connection to db: " + DBurl );
-                    var collection = db.collection("users");
-                    collection.find({"UserEmail": NewUserEmail}).limit(1).toArray(function (err,result) {
-                         if(!result.length) {
-                             collection.updateOne({"UserEmail": UserEmail}, {$set: {"UserEmail" : NewUserEmail}});
-                             user.ChangeUserEmail = true;
-                             user.UserEmail = NewName;
-                            res.json(user)
-                        } else if(result.length) {
-                             user.ChangeUserEmail = false;
-                            res.json(user);
-                        }
-                        db.close();
-                    });
-                })
-        }}
-    if(NewPass){
-        try {
-            MongoClient.connect(DBurl, function (err,db) {
-                if(err) {
-                    console.log("Error", err);
-                } else {
-                    console.log("Connection to db: " + DBurl);
-                    var collection = db.collection("users");
-                    collection.find({"UserEmail" : UserEmail, "password": OldPass}).limit(1).toArray(function (err, result) {
-                        if(err) {
-                            console.log(err);
-                        } else if(result.length) {
-                            user.ChangePass = true;
-                            collection.updateOne({"UserEmail": UserEmail}, {$set: {"password" : NewPass}});
-                            console.log("Change");
-                            console.log("Change pass: ", NewPass);
-                            res.json(user)
-                        } else if(!result.length) {
-                            user.ChangePass = false;
-                            res.json(user);
-                        }
-                        db.close();
-                    });
-                }});
-        }
-       
-    }
-    if(RealName != undefined) {
-        try {
-            MongoClient.connect(DBurl, function (err,db) {
-                if(err) {
-                    console.log(err)
-                } else {
-                    console.log("Connection to db: " + DBurl);
-                    var collection = db.collection("users");
-                    collection.find({"UserEmail" : UserEmail}).limit(1).toArray(function (err, result) {
-                        if(err){
-                            console.log(err)
-                        } else if(result) {
-                            collection.updateOne({"UserEmail": UserEmail}, {$set: {"RealName" : RealName, "RealSurName" : RealSurName}});
-                            user.saved = true;
-                            res.json(user);
-                        } else if(!result) {
-                            user.saved = false;
-                            res.json(user);
-                        }
-                        db.close();
-                    })
-                }
-            })
-        }
-    }
-});
-
-
-app.post("/delete",function (req,res) {
-    console.log("Session destroyed");
-
-    req.session.destroy();
-    res.clearCookie('btnExit');
-    res.send("del");
-});
-
-app.get("/ping", function (req,res) {
-    console.log("____________________________________________________________________________________________________");
-    console.log(req);
-    res.send(req);
-    res.end();
-});
-
+});*/
 
 app.listen(config.port, () => {
     console.log('Server start on port ' + config.port);

@@ -34,7 +34,10 @@ var change = router.post('/', function(req, res) {
                     db.close();
                 });
             })
-        }}
+        } catch (e) {
+            console.log(e);
+        }
+    }
     if(NewPass){
         try {
             MongoClient.connect(DBurl, function (err,db) {
@@ -59,6 +62,8 @@ var change = router.post('/', function(req, res) {
                         db.close();
                     });
                 }});
+        } catch (e) {
+            console.log(e);
         }
 
     }
@@ -85,6 +90,8 @@ var change = router.post('/', function(req, res) {
                     })
                 }
             })
+        } catch (e) {
+            console.log(e);
         }
     }
 });

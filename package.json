@@ -1,10 +1,10 @@
 {
   "name": "FA_Tvolex",
-  "version": "1.0.1",
+  "version": "1.10.1",
   "description": "",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node src/server.js nodemon"
+    "dev": "nodemon src/server.js"
   },
   "repository": {
     "type": "git",
