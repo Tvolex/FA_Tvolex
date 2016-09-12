@@ -27,11 +27,13 @@ var Auth = router.post("/", (req,res) => {
                         collection.updateOne({"UserEmail": UserEmail}, {$set: {"SessionID" : req.sessionID}});
                         req.session.UserEmail = UserEmail;
                         res.cookie('btnExit', true)
-                            .send(200,HaveUser)
+                            .status(200)
+                            .send(HaveUser)
                             .end();
                     } else {                                                                  // в бд немає такого юзера
                         HaveUser.UserEmail = undefined;
-                        res.send(401,HaveUser)
+                        res.status(401)
+                            .send(HaveUser)
                             .end();
                     }
                     db.close();
@@ -39,7 +41,7 @@ var Auth = router.post("/", (req,res) => {
             }
         });
     } catch (e){
-        res.send(400,"Email undefined");
+        res.send(400,"Err");
         res.end();
     }
 });

@@ -110,15 +110,16 @@
         type: "POST",
         success:function (res) {
           if(res == "del") {
-            window.location.href = "index.html";
+            window.location.href = "/index";
           }
         },
         error: function (err) {
           console.log("Error", err);
           alert("Error", err);
         }
-      })
-    })
+      });
+      $("#btnExit").remove();
+    });
   </script>
 </header>
 <body>

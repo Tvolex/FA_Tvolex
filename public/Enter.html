@@ -43,7 +43,7 @@
                  type: "POST",
                  success:function (res) {
                      if(res == "del") {
-                         window.location.href = "index.html";
+                         window.location.href = "/index";
                      }
                  },
                  error: function (err) {
@@ -53,8 +53,6 @@
              });
              $("#btnExit").remove();
          });
-
-
      </script>
  </header>
 
@@ -271,26 +269,26 @@ function Authorization() {
                 type: "POST",
                 url: url,
                 data: data,
-                success: function (res) {
-                    console.log("Done:");
-                    console.log("Login: " + UserEmail.value);
-                    console.log("Response from server, name: " + res.UserEmail);
-                    if(res.UserEmail === UserEmail.value) {
+                success: function (data,success,res) {
+                    console.log("success: ", success);
+                    if(data.UserEmail === UserEmail.value && res.status == 200) {
                         info.css("color","black");
                         info.text("Hello, " + UserEmail.value);
                         info.css("opacity","1");
                         window.location.href = "/MyOffice";
-                    } else {
-                        info.css("color","red");
-                        info.text("Wrong login or password");
-                        info.css("opacity","1")
                     }
                 },
                 error: function (err) {
-                    console.log( err);
-                    info.text("Error: not connection to DB");
-                    info.css("opacity","1");
-                    info.css("color","red");
+                    if(err.status == 401) {
+                        info.css("color","red");
+                        info.text("Wrong login or password");
+                        info.css("opacity","1")
+                    } else {
+                        info.text("Error: status code: " + err.status );
+                        info.css("opacity","1");
+                        info.css("color","red");
+                    }
+
                 }
             });
         } else {

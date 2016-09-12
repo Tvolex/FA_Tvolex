@@ -34,7 +34,7 @@
                 type: "POST",
                 success:function (res) {
                     if(res == "del") {
-                        window.location.href = "index.html";
+                        window.location.href = "/index";
                     }
                 },
                 error: function (err) {
@@ -44,8 +44,6 @@
             });
             $("#btnExit").remove();
         });
-
-
     </script>
 </header>
 
@@ -55,6 +53,24 @@
 <div id="Content" align="center">
     <div class="hello"><h3>Hello, this is <a href="/AboutUs">our</a> test website</h3></div>
 </div>
+<div class="clock" align="center">
+    <span class="time">
+    <script>
+        setInterval(function () {
+            var date = new Date();
+            var hour = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var time = hour + ":" + minutes + ":" + seconds;
+            $('.time').empty();
+            $(".time").append(time);
+            console.log(time.toString());
+        },999);
+
+    </script>
+</span>
+</div>
+
 <script>
 
     $("#btnExit").click(function () {
