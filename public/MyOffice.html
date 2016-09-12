@@ -3,10 +3,12 @@
     <title>My office</title>
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+    <script src="scripts/cookie.js"></script>
     <script type="text/javascript">
-        $(window).on('load', function () {
-        var $preloader = $('#p_prldr'),
-                $svg_anm   = $preloader.find('.svg_anm');
         $.ajax({
             url: "/login",
             type: "GET",
@@ -17,19 +19,20 @@
                     var RealName = res.RealName;
                     var RealSurName = res.RealSurName;
                     $("#HelloUser").append("Hello, " + UserEmail);
-                    $preloader.delay(500).fadeOut('slow');
-                    setTimeout(function () {
-                        $("body").css("overflow-y","auto");
-                    },1500);
                     if(RealName) {
                         $("#FormRealName").remove();
                         $("#realuser").append(RealName);
                         $("#surname").append(RealSurName);
                         $("#email").append(UserEmail);
-
                     } else {
                         $(".RealUserInfo").remove();
                     }
+
+                    var $preloader = $('#p_prldr'),
+                            $svg_anm   = $preloader.find('.svg_anm'); $preloader.delay(500).fadeOut('slow');
+                    setTimeout(function () {
+                        $("body").css("overflow-y","auto");
+                    },1500);
                 } else if(res == null) {
                     console.log(res);
                     window.location.replace("Enter.html");
@@ -41,25 +44,19 @@
 
             }
         });
-
-
-    });</script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
-    <script src="scripts/cookie.js"></script>
+    </script>
 </head>
 <header>
     <div class="dropdown">
         <button class="btn  btn-primary" style="height:45px;width: 100px" data-toggle="dropdown">Menu </button>
         <ul class="dropdown-menu" role="menu" >
-            <li><a   href="index.html">Home</a></li>
-            <li><a  href="AboutUs.html">About Us</a></li>
-            <li><a  href="MyOffice.html">Account</a></li>
-            <li><a  href="Enter.html">Sign In</a></li>
+            <li><a   href="/index">Home</a></li>
+            <li><a  href="/AboutUs">About Us</a></li>
+            <li><a  href="/MyOffice">Account</a></li>
+            <li><a  href="/Enter">Sign In</a></li>
         </ul>
-        <input type="button" id="btnExit" value="Exit" class="btn btn-danger"  />
+        <input type="button"  id="btnExit" value="Exit" class="btn btn-danger"  />
+
     </div>
     <script>
         if($.cookie("btnExit") == undefined) {
@@ -70,14 +67,13 @@
             $.ajax({
                 url: "/delete",
                 type: "POST",
-                success:function (res) {
-                    if(res == "del") {
-                        window.location.href = "index.html";
-                    }
+                success: function(res){
+                    console.log(res);
+                    if(res) window.location.href = "/index";
                 },
                 error: function (err) {
                     console.log("Error", err);
-                    alert("Error", err);
+                    alert("Error: " + err);
                 }
             });
             $("#btnExit").remove();
@@ -163,7 +159,7 @@
     </div>
     <div class="col-md-5" align="center" >
         <hr  color="yellowgreen" style=" height: 2px;">
-        <a href="RandomImages.html" style="text-decoration: none">
+        <a href="/RandomImages" style="text-decoration: none">
             <div class="RImageBtn">
                 <div class="BtnTitle"><b>Random image</b></div>
             </div>
@@ -179,7 +175,7 @@
 
         <hr>
 
-        <a href="Setting.html" style="text-decoration: none">
+        <a href="/Setting" style="text-decoration: none">
             <div class="SettingBtn">
                 <img class="settingImage" src="style/img/setting.png" alt="error">
                 <div class="BtnTitle">

@@ -67,7 +67,7 @@ var change = router.post('/', (req, res) => {
         }
 
     }
-    if(RealName != undefined) {
+    if(RealName) {
         try {
             MongoClient.connect(DBurl, (err,db) => {
                 if(err) {
